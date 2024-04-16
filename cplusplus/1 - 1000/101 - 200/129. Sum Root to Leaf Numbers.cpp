@@ -41,3 +41,33 @@ public:
         return root->val;
     }
 };
+
+//
+
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        std::stack<std::pair<TreeNode*, int>> st;
+        int sum = 0;
+
+        st.push({root, root->val});
+        while(!st.empty()) {
+            std::pair<TreeNode*, int> p = st.top();
+            TreeNode* p1 = p.first;
+            int p2 = p.second;
+            
+            st.pop();
+
+            if(p1->left == NULL && p1->right == NULL)
+                sum += p2;
+
+            if(p1->left != NULL)
+                st.push({p1->left, p2*10 + p1->left->val});
+
+            if(p1->right != NULL)
+                st.push({p1->right, p2*10 + p1->right->val});
+        }
+
+        return sum;
+    }
+};
